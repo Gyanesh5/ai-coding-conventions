@@ -23,6 +23,7 @@
 - **.cpp/.h 文件**，请同时参考：`.agents/cpp.md`
 - **测试代码**，请同时参考：`.agents/testing.md`
 - **通用规范**，请同时参考：`.agents/general.md`
+- **项目目录结构**，必须遵守：`.agents/layout.md`
 
 ---
 
