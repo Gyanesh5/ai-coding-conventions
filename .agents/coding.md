@@ -135,7 +135,7 @@ TODO 必须包含署名和日期：`# TODO(alice, 2026-07-09): 支持 N 组配�
 
 ```
 ✅ 记录完整堆栈
-logger.error("设备连接失败: %s", exc, exc_info=True)
+logger.error(f"设备连接失败: {exc}", exc_info=True)
 # 或等价的 logger.exception("设备连接失败")
 
 ❌ 只记消息不记堆栈
@@ -147,13 +147,44 @@ logger.error(str(exc))
 ```
 ❌ logger.error("连接失败")
 
-✅ logger.error("Modbus 连接失败: host=%s, port=%d, error=%s", host, port, exc)
+✅ logger.error(f"Modbus 连接失败: host={host}, port={port}, error={exc}")
+```
+
+### 路径切换或回退时必须记录
+
+执行流程从一条路径切换/回退到另一条路径（降级、fallback、分支选择）时，必须以 INFO 或 WARNING 记录切换事件，说明源路径、目标路径和切换原因。这是排查"为什么最终走了这条路"的关键节点。
+
+```
+✅ 记录回退原因
+code, center1 = detect_object(roi_img, depth, K, D, model, modbus_device)
+if code != "OK":
+    _logger.info(f"trigger2: YOLO 路径失败({code})，回退 ArUco 检测")
+    ret, center = detect_aruco_codes(roi_img, depth, K, D)
+
+❌ 静默切换，事后无法还原流程走向
+if code != "OK":
+    ret, center = detect_aruco_codes(roi_img, depth, K, D)
+```
+
+### 返回错误/失败状态前必须记录
+
+函数返回错误或失败状态（如 "NO_RAW_MATERIAL"、"FAILED"、None、False）之前，必须先以 WARNING 或 ERROR 记录失败原因和关键变量值。仅返回错误码而不记日志，会让调用方和运维无法定位失败来源。
+
+```
+✅ 返回前记录关键变量
+if i != EXPECTED_READY and i2 != EXPECTED_READY:
+    _logger.warning(f"detect_object: AGV 无原料 (i={i}, i2={i2}, 期望均为 {EXPECTED_READY})")
+    return "NO_RAW_MATERIAL", [0, 0]
+
+❌ 只返回错误码，丢失现场
+if i != 2 and i2 != 2:
+    return "NO_RAW_MATERIAL", [0, 0]
 ```
 
 ### 日志语言：中文描述业务语义，技术标识符保持英文
 
 ```
-✅ logger.info("等待 PLC 触发 taskB, robot_id=%s", robot_id)
+✅ logger.info(f"等待 PLC 触发 taskB, robot_id={robot_id}")
 ✅ logger.warning("SAM3 服务未就绪，将重试")
 
 ❌ logger.info("Waiting for PLC trigger taskB")
