@@ -4,20 +4,6 @@
 
 ---
 
-## 禁止硬编码敏感信息
-
-```python
-# ❌
-API_KEY = "sk-xxxx"
-DEVICE_IP = "192.168.1.100"
-
-# ✅
-API_KEY = os.getenv("API_KEY")
-DEVICE_IP = os.getenv("DEVICE_IP")
-```
-
----
-
 ## 禁止 eval() / exec()
 
 代码注入风险。

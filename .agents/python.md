@@ -122,8 +122,6 @@ retry = config.get("max_retry", DEFAULTS["max_retry"])
 
 ### 配置加载时必须校验，校验失败 fail-fast 退出
 
-### 密码和密钥禁止硬编码，使用环境变量
-
 ---
 
 ## 线程安全
