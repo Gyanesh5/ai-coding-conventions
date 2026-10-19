@@ -136,4 +136,6 @@ retry = config.get("max_retry", DEFAULTS["max_retry"])
 - `import *`
 - `type(x) == T`（用 `isinstance(x, T)`）
 - 函数内 import（循环依赖除外，须注释说明）
+- `try-except` 包 import：需要的库直接 import，缺失就在启动时报错；可选依赖属于显式设计决策，必须带完整降级路径
+- 成熟文件格式（JSON/YAML/TOML/INI）手写 parser（直接用标准库或第三方库）
 - 单文件超过 500 行（需拆分模块）

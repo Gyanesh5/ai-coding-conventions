@@ -31,6 +31,10 @@ clang-format -i $(git diff --name-only --cached -- '*.cpp' '*.h') \
 
 必须使用 feature 分支开发，禁止直接提交到 main。
 
+### 禁止用 Git 命令回滚代码
+
+禁止 `git reset --hard`、`git checkout -- .` 等命令丢弃工作区改动。需要"回滚"时，用编辑工具按 diff 手动恢复代码——过程可见、可审查；Git 命令一把抹掉，不可见且不可逆。
+
 ### Commit 消息
 
 Conventional Commits 格式：
@@ -62,9 +66,16 @@ Conventional Commits 格式：
 
 ---
 
+## 脚本执行
+
+禁止在 bash 中 inline 多行脚本或 heredoc——先写成文件再执行。inline 脚本不可读、不可复跑、无法审查；落盘的文件本身就是记录。
+
+---
+
 ## 变更原则
 
 - 每次提交只做一个逻辑变更
 - 依赖必须带版本约束（`numpy>=1.24,<2.0`），提交锁文件
 - 禁止提交 `.env` 和含密码/IP 的配置文件
 - 发布版本必须打 Git tag
+- 被纠正后交付干净终态：commit/PR/注释中禁止留修改痕迹（"已移除误加的 X"）和"为什么不做 Y"式辩解
