@@ -10,18 +10,6 @@
 
 ---
 
-## SQL 注入
-
-```python
-# ❌ 字符串拼接
-query = f"SELECT * FROM users WHERE name = '{name}'"
-
-# ✅ 参数化查询
-cursor.execute("SELECT * FROM users WHERE name = %s", (name,))
-```
-
----
-
 ## 命令注入
 
 ```python
@@ -59,14 +47,6 @@ subprocess.run(["ping", ip], check=True)
 ## 日志安全
 
 不记录密码、token、密钥。
-
----
-
-## 密码安全
-
-- 密码必须使用哈希存储（bcrypt），禁止明文
-- 密码比较必须使用恒定时间比较（`secrets.compare_digest`）
-- 会话 Token 必须使用密码学安全的随机生成（`secrets.token_urlsafe`）
 
 ---
 
