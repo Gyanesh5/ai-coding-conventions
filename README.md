@@ -71,11 +71,11 @@ bash /path/to/ai-coding-conventions/conventions.sh install user   # 用户级（
 **Claude Code 插件通道**（第三条轨道，替代用户级 `install user` 的软链）：仓库自带 `.claude-plugin/`（plugin.json + 自举 marketplace.json），一条命令接入——
 
 ```bash
-claude plugin marketplace add /path/to/ai-coding-conventions   # 或 gitee git URL（内网）
+claude plugin marketplace add Gyanesh5/ai-coding-conventions   # GitHub 私有仓（gh 已认证即可）；或直接给本地路径
 claude plugin install coding-conventions@ai-coding-conventions
 ```
 
-安装后 skills 自动随任务匹配加载；规范更新 `claude plugin marketplace update` 即跟随。本仓库为私有仓，marketplace 仅限本机路径 / 内网 git 源，不发布公共目录。
+安装后 skills 自动随任务匹配加载；规范更新 `claude plugin marketplace update` 即跟随。主仓在 GitHub（私有），gitee 为同步镜像（`git pushall` 双推）。
 
 ## 工作机制
 

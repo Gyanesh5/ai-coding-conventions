@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "author": {
     "name": "Gyanesh",
-    "url": "https://gitee.com/albert_robot"
+    "url": "https://github.com/Gyanesh5"
   },
-  "repository": "https://gitee.com/albert_robot/ai-coding-conventions",
+  "repository": "https://github.com/Gyanesh5/ai-coding-conventions",
   "keywords": ["conventions", "coding-standards", "python", "cpp", "frontend", "testing", "security"]
 }
