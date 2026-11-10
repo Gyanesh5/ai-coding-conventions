@@ -1,0 +1,19 @@
+{
+  "name": "ai-coding-conventions",
+  "version": "1.0.0",
+  "owner": {
+    "name": "Gyanesh",
+    "url": "https://gitee.com/albert_robot"
+  },
+  "description": "Gyanesh 的 agent 插件：coding-conventions 统一编码规范（工业场景）",
+  "plugins": [
+    {
+      "name": "coding-conventions",
+      "description": "编码规范路由：按文件类型自动加载 Python/C++/前端/测试/安全/布局规范，工业场景验证",
+      "source": "./",
+      "version": "1.0.0",
+      "category": "code-quality",
+      "tags": ["conventions", "python", "cpp", "frontend", "testing", "security", "code-quality"]
+    }
+  ]
+}

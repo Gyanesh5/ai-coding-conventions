@@ -1,6 +1,7 @@
 ---
 name: coding-conventions
 description: 写代码、改代码、写测试前加载的编码规范路由——按文件类型读取对应规范（Python/C++/前端/测试/安全/布局），违反规范的改动会被打回。
+version: 1.0.0
 ---
 
 # 统一编码规范（路由）

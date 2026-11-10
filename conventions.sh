@@ -111,6 +111,12 @@ cmd_install() {
 
 cmd_status() {
   local proj="$PWD" ok=1
+  if [ -f "$REPO/.claude-plugin/plugin.json" ]; then
+    echo "✓ 插件清单 $REPO/.claude-plugin/plugin.json（Claude Code: /plugin marketplace add <本仓库路径或 git URL>）"
+  else
+    echo "✗ 插件清单缺失（版本过旧？git pull）"
+    ok=0
+  fi
   if [ -L "$proj/.agents" ] && [ -d "$proj/.agents" ]; then
     echo "✓ 轨1 .agents → $(readlink "$proj/.agents")"
   else

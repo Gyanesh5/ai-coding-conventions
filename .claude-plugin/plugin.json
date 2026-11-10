@@ -1,0 +1,11 @@
+{
+  "name": "coding-conventions",
+  "description": "编码规范路由：按文件类型自动加载 Python/C++/前端/测试/安全/布局规范，工业场景验证",
+  "version": "1.0.0",
+  "author": {
+    "name": "Gyanesh",
+    "url": "https://gitee.com/albert_robot"
+  },
+  "repository": "https://gitee.com/albert_robot/ai-coding-conventions",
+  "keywords": ["conventions", "coding-standards", "python", "cpp", "frontend", "testing", "security"]
+}

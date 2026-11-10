@@ -15,6 +15,7 @@ ai-coding-conventions/
 ├── AGENTS.md            # 项目入口模板（由 conventions.sh link 复制到新项目）
 ├── conventions.sh       # 接入工具：link / install / status / sync
 ├── .clang-format        # C++ 格式化配置（Google 风格）
+├── .claude-plugin/      # Claude Code 插件清单（plugin.json + 自举 marketplace.json）
 ├── skills/
 │   └── coding-conventions/    # Agent Skills 标准插件（SKILL.md 格式，跨工具通用）
 │       ├── SKILL.md           # 触发入口：按文件类型路由到规范
@@ -66,6 +67,15 @@ bash /path/to/ai-coding-conventions/conventions.sh install user   # 用户级（
 - `.claude/skills/coding-conventions` → `../../.agents/skills/coding-conventions`（Claude Code 只认 `.claude/skills/`，相对 symlink 保持仓库可移植）
 
 建议项目 `.gitignore` 追加 `.agents` 与 `.claude/`：链接指向各机规范库克隆，不随 git 旅行；新机 clone 项目后重跑一次 `link + install` 即恢复（每机一次性成本）。
+
+**Claude Code 插件通道**（第三条轨道，替代用户级 `install user` 的软链）：仓库自带 `.claude-plugin/`（plugin.json + 自举 marketplace.json），一条命令接入——
+
+```bash
+claude plugin marketplace add /path/to/ai-coding-conventions   # 或 gitee git URL（内网）
+claude plugin install coding-conventions@ai-coding-conventions
+```
+
+安装后 skills 自动随任务匹配加载；规范更新 `claude plugin marketplace update` 即跟随。本仓库为私有仓，marketplace 仅限本机路径 / 内网 git 源，不发布公共目录。
 
 ## 工作机制
 
