@@ -135,7 +135,7 @@ configs/
 | 目录 | 用途 | 谁来用 | 示例 |
 |------|------|--------|------|
 | `scripts/` | 部署、启停、运维 | 现场工程师 / systemd | `service.sh`、`deploy.sh`、`verify.sh` |
-| `tools/` | 领域 CLI（一次性但有业务语义） | 开发、调试 | `calibrate_hand_eye.py`、`move_and_capture.py` |
+| `tools/` | 领域 CLI（一次性但有业务语义） | 开发、调试 | `batch_inference.py`、`gen_config_reference.py`（标定/采图 CLI 用 `vendor/vrtoolkit/tools/`） |
 
 ```
 scripts/
@@ -144,9 +144,11 @@ scripts/
 └── verify.sh
 
 tools/
-├── calibrate_hand_eye.py    # 手眼标定 CLI
-└── move_and_capture.py      # 采图脚本
+├── batch_inference.py       # YOLO 批量推理
+└── gen_config_reference.py  # 配置参考生成
 ```
+
+手眼标定与采图 CLI 由 vrtoolkit 提供：`python vendor/vrtoolkit/tools/calibrate_hand_eye.py`（含清晰度预筛、角点序消歧、迭代剔除、多算法交叉验证）、`python vendor/vrtoolkit/tools/move_and_capture.py`。
 
 - `tools/` 下的脚本须在文件头注明作者、日期、用途
 - `scripts/` 下的脚本须可被 systemd 或运维流程直接调用，不依赖交互输入
