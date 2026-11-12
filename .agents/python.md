@@ -1,1 +1,0 @@
-../skills/coding-conventions/references/python.md
