@@ -32,7 +32,7 @@ project-root/
 | 目录 | 语义 | 来源 | 版本控制 | 示例 |
 |------|------|------|----------|------|
 | `packages/` | **自研**可复用代码 | 团队编写，本仓库原生 | 直接提交源码 | `protocol/`、`common/`、`model-sdk/` |
-| `vendor/` | **第三方**代码本地副本 | 外部仓库、git submodule | 提交快照或子模块指针 | `vendor/vrtoolkit/` |
+| `vendor/` | **第三方**代码本地副本 | 外部仓库、git submodule | 提交快照或子模块指针 | `vendor/<外部库名>/` |
 
 **禁止把自研代码放进 `vendor/`，禁止修改 `vendor/` 下的第三方源码**（如需定制，fork 后作为独立仓库引入）。
 
@@ -81,7 +81,7 @@ from common.logging import get_logger          # 来自 packages/common
 from src.vision.detection import detect_object
 ```
 
-> **迁移说明**：历史项目 DH-transfer 使用 `from src.xxx import` 写法，与本规范不一致。迁移时需调整 import 路径（去掉 `src.` 前缀），并在 `pyproject.toml` 配置 `[tool.setuptools.packages.find] where = ["src"]`。这不是规范错误，是历史项目的主动迁移。
+> **存量项目迁移**：从 `from src.xxx import` 写法迁移到 src layout 时，去掉 `src.` 前缀调整 import 路径，并在 `pyproject.toml` 配置 `[tool.setuptools.packages.find] where = ["src"]`。
 
 ---
 
@@ -126,7 +126,7 @@ configs/
 
 业务代码禁止硬编码配置文件路径，统一通过启动参数或环境变量 `CONFIG_DIR` 指向。
 
-> 历史项目 DH-transfer 用 `config/`（单数）。新项目统一用 `configs/`（复数）。
+> 目录名统一用 `configs/`（复数）。
 
 ---
 
@@ -135,7 +135,7 @@ configs/
 | 目录 | 用途 | 谁来用 | 示例 |
 |------|------|--------|------|
 | `scripts/` | 部署、启停、运维 | 现场工程师 / systemd | `service.sh`、`deploy.sh`、`verify.sh` |
-| `tools/` | 领域 CLI（一次性但有业务语义） | 开发、调试 | `batch_inference.py`、`gen_config_reference.py`（标定/采图 CLI 用 `vendor/vrtoolkit/tools/`） |
+| `tools/` | 领域 CLI（一次性但有业务语义） | 开发、调试 | `convert_dataset.py`、`gen_config_reference.py` |
 
 ```
 scripts/
@@ -144,11 +144,9 @@ scripts/
 └── verify.sh
 
 tools/
-├── batch_inference.py       # YOLO 批量推理
+├── convert_dataset.py       # 数据集批量转换
 └── gen_config_reference.py  # 配置参考生成
 ```
-
-手眼标定与采图 CLI 由 vrtoolkit 提供：`python vendor/vrtoolkit/tools/calibrate_hand_eye.py`（含清晰度预筛、角点序消歧、迭代剔除、多算法交叉验证）、`python vendor/vrtoolkit/tools/move_and_capture.py`。
 
 - `tools/` 下的脚本须在文件头注明作者、日期、用途
 - `scripts/` 下的脚本须可被 systemd 或运维流程直接调用，不依赖交互输入
